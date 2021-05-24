@@ -1,0 +1,90 @@
+<div class="main-form__div">
+  <form action="submit" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="main-form">
+      <label for="name">Name:</label><br />
+      <input type="text" name="username" formControlName="username" />
+      <span
+        *ngIf="
+          !signupForm.get('username').valid &&
+          signupForm.get('username').touched
+        "
+        >Please enter a valid name.</span
+      >
+    </div>
+    <div class="main-form">
+      <label for="email">Email:</label><br />
+      <input type="email" name="email" formControlName="email" />
+      <span
+        *ngIf="
+          !signupForm.get('email').valid && signupForm.get('email').touched
+        "
+      >
+        Please enter a valid email.</span
+      >
+    </div>
+    <div class="main-form">
+      <label for="phone">Phone No:</label><br />
+      <input type="number" name="phoneNo" formControlName="phoneNo" />
+      <span
+        *ngIf="
+          !signupForm.get('phoneNo').valid && signupForm.get('phoneNo').touched
+        "
+        >Please enter a valid Phone number.</span
+      >
+    </div>
+    <div class="main-form" formArrayName="questions">
+      <label for="question">Ask A question:</label><br />
+      <button class="btn btn-primary" type="button" (click)="onAddQuestion()">
+        Add Question
+      </button>
+      <div
+        class="main-form"
+        *ngFor="let question of getQuestions(); let i = index"
+      >
+        <textarea
+          name="question"
+          id=""
+          style="width: 100%"
+          rows="3"
+          [formControlName]="i"
+        ></textarea>
+      </div>
+    </div>
+    <div class="main-form">
+      <button
+        type="submit"
+        class="main-form__btn"
+        [disabled]="!signupForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  <hr />
+  <div class="main-form">
+    <button type="button" class="btn btn-primary" (click)="onFetch()">
+      Fetch Users
+    </button>
+  </div>
+  <div>
+    <div *ngIf="isFetching" style="text-align: center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div *ngIf="!isFetching">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone No</th>
+          <th>Questions</th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phoneNo }}</td>
+          <td>{{ user.questions }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -2,15 +2,32 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { AppNavComponent } from './app-nav/app-nav.component';
+import { HomeComponent } from './home/home.component';
+import { ServicesComponent } from './services/services.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorComponent } from './error/error.component';
+import { AppRouting } from 'src/app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './Shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppNavComponent,
+    HomeComponent,
+    ServicesComponent,
+    ErrorComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    AppRouting,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
