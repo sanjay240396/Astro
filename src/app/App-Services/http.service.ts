@@ -38,6 +38,9 @@ export class HttpService {
               postsArray.push({ ...res[key], id: key });
           }
           return postsArray;
+        }),
+        catchError((err) => {
+          throw new Error(err.message);
         })
       );
   }

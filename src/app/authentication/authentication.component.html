@@ -1,0 +1,79 @@
+<!-- <div class="auth-background"></div> -->
+<div class="signUp-main">
+  <h3 class="signUp-title" [ngStyle]="{ color: getColor() }">
+    Please {{ isSignUp ? "Sign Up" : "Login" }}
+  </h3>
+  <div *ngIf="isLoading" style="text-align: center">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div *ngIf="!isLoading">
+    <form class="signUp-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="isSignUp">
+        <label for="title">Title:</label>
+        <select name="title" id="tite" formControlName="title">
+          <option value="mr">Mr.</option>
+          <option value="ms">Ms.</option>
+        </select>
+        <label for="name">Name:</label>
+        <input type="text" formControlName="username" />
+        <span
+          *ngIf="
+            !signUpForm.get('username').valid &&
+            signUpForm.get('username').touched
+          "
+          >Please enter the name.</span
+        >
+      </div>
+      <label for="email">Email:</label>
+      <input type="email" formControlName="email" />
+      <span
+        *ngIf="
+          !signUpForm.get('email').valid && signUpForm.get('email').touched
+        "
+        >Please enter the valid email</span
+      >
+      <label for="password">Password:</label>
+      <input type="password" formControlName="password" />
+      <div *ngIf="signUpForm.get('password').touched">
+        <div *ngIf="isSignUp">
+          <span *ngIf="signUpForm.get('password').errors?.invalidPassword"
+            >Please enter the valid Password</span
+          >
+        </div>
+        <span *ngIf="signUpForm.get('password').errors?.required"
+          >Please enter the Password</span
+        >
+      </div>
+      <div *ngIf="isSignUp">
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" formControlName="confirmPassword" />
+        <span
+          *ngIf="
+            signUpForm.errors?.passwordNotMatch &&
+            signUpForm.get('confirmPassword').touched
+          "
+          >Password is not matching.</span
+        >
+      </div>
+      <br />
+      <input type="checkbox" id="remember_me" />
+      <label for="remember_me" id="remember_me">Remember Me</label>
+      <br />
+      <div class="signUpForm-btn">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!signUpForm.valid && isSignUp"
+        >
+          {{ isSignUp ? "Signup" : "Login" }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSwitch()">
+          {{ isSignUp ? "Switch to Login" : "Switch to Sign Up" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

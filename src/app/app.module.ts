@@ -10,6 +10,7 @@ import { ErrorComponent } from './error/error.component';
 import { AppRouting } from 'src/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './Shared/loading-spinner/loading-spinner.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoadingSpinnerComponent } from './Shared/loading-spinner/loading-spinne
     ServicesComponent,
     ErrorComponent,
     LoadingSpinnerComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,

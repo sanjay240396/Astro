@@ -12,11 +12,11 @@ export class HomeComponent implements OnInit {
   constructor(private httpService: HttpService) {}
   user: User;
   users: User[] = [];
-  signupForm: FormGroup;
+  questionForm: FormGroup;
   isFetching = false;
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
+    this.questionForm = new FormGroup({
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
       phoneNo: new FormControl(null, [
@@ -25,16 +25,16 @@ export class HomeComponent implements OnInit {
       ]),
       questions: new FormArray([]),
     });
-    this.onFetch();
+    // this.onFetch();
   }
 
   getQuestions() {
-    return (<FormArray>this.signupForm.get('questions')).controls;
+    return (<FormArray>this.questionForm.get('questions')).controls;
   }
 
   onAddQuestion() {
     const control = new FormControl(null);
-    (<FormArray>this.signupForm.get('questions')).push(control);
+    (<FormArray>this.questionForm.get('questions')).push(control);
   }
 
   validatePhoneNo(control: FormControl): { [s: string]: boolean } {
@@ -43,13 +43,13 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm);
+    console.log(this.questionForm);
 
     this.user = {
-      name: this.signupForm.value.username,
-      email: this.signupForm.value.email,
-      phoneNo: this.signupForm.value.phoneNo,
-      questions: this.signupForm.value.questions,
+      name: this.questionForm.value.username,
+      email: this.questionForm.value.email,
+      phoneNo: this.questionForm.value.phoneNo,
+      questions: this.questionForm.value.questions,
     };
 
     this.httpService.postRequest(this.user).subscribe(
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
       (error) => console.log(error)
     );
     console.log(this.user);
-    this.signupForm.reset();
+    this.questionForm.reset();
   }
 
   onFetch() {
