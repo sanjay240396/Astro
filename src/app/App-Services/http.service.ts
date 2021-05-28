@@ -1,12 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { catchError, exhaustMap, map, take } from 'rxjs/operators';
 import { User } from '../user.model';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class HttpService {
-  constructor(private http: HttpClient) {}
+export class HttpService implements OnInit {
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  ngOnInit() {}
+
   postRequest(user: User) {
     return this.http
       .post<{ name: string }>(

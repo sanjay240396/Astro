@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { AuthUserModel } from '../AuthUser.mode';
 
@@ -15,7 +15,8 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new Subject<AuthUserModel>();
+  user = new BehaviorSubject<AuthUserModel>(null);
+  private timout: any;
   constructor(private http: HttpClient) {}
 
   signUp(email: string, password: string) {
@@ -96,5 +97,46 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const authUser = new AuthUserModel(email, idToken, localId, expirationDate);
     this.user.next(authUser);
+    this.autoLogout(+expiresIn * 1000);
+    localStorage.setItem('user', JSON.stringify(authUser));
+  }
+
+  logoutUser() {
+    this.user.next(null);
+    localStorage.removeItem('user');
+    if (this.timout) {
+      clearTimeout(this.timout);
+    }
+    this.timout = null;
+  }
+
+  autoLogout(expDuration: number) {
+    this.timout = setTimeout(() => {
+      this.logoutUser();
+    }, expDuration);
+  }
+
+  autoLogin() {
+    const user: {
+      email: string;
+      idToken: string;
+      localId: string;
+      expirationDate: string;
+    } = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) return;
+    const authuser = new AuthUserModel(
+      user.email,
+      user.idToken,
+      user.localId,
+      new Date(user.expirationDate)
+    );
+
+    if (authuser.token) {
+      this.user.next(authuser);
+      this.autoLogout(
+        new Date(user.expirationDate).getTime() - new Date().getTime()
+      );
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../App-Services/auth.service';
 import { HttpService } from '../App-Services/http.service';
 import { User } from '../user.model';
 
@@ -9,13 +10,18 @@ import { User } from '../user.model';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private authService: AuthService
+  ) {}
   user: User;
-  users: User[] = [];
   questionForm: FormGroup;
   isFetching = false;
 
   ngOnInit(): void {
+    this.authService.user.subscribe((user) => {});
+
+    //question Form creation
     this.questionForm = new FormGroup({
       username: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -25,7 +31,6 @@ export class HomeComponent implements OnInit {
       ]),
       questions: new FormArray([]),
     });
-    // this.onFetch();
   }
 
   getQuestions() {
@@ -58,13 +63,5 @@ export class HomeComponent implements OnInit {
     );
     console.log(this.user);
     this.questionForm.reset();
-  }
-
-  onFetch() {
-    this.isFetching = true;
-    this.httpService.getUser().subscribe((response) => {
-      this.users = response;
-      this.isFetching = false;
-    });
   }
 }

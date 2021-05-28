@@ -1,3 +1,9 @@
+.main-home {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
 .main-form__div {
   margin: 2rem;
   width: 50%;
@@ -26,6 +32,10 @@
   background-color: black;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.main-form input {
+  border: 1px solid #ccc;
 }
 
 .main-form__btn:hover {

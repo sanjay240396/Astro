@@ -1,0 +1,16 @@
+.fetch-div {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  padding: 3rem;
+}
+table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+th,
+td {
+  border: 2px solid #dddddd;
+  padding: 8px;
+}

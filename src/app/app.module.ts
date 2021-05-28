@@ -7,10 +7,12 @@ import { HomeComponent } from './home/home.component';
 import { ServicesComponent } from './services/services.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './error/error.component';
-import { AppRouting } from 'src/app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './Shared/loading-spinner/loading-spinner.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { FetchUserComponent } from './fetch-user/fetch-user.component';
+import { AppRouting } from './app-routing.module';
+import { AuthInterceptor } from './App-Services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     ErrorComponent,
     LoadingSpinnerComponent,
     AuthenticationComponent,
+    FetchUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,9 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

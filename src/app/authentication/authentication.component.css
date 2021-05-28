@@ -66,11 +66,15 @@
 .signUp-form button[type="button"] {
   display: inline-block;
   margin-top: 2rem;
-  margin: 2rem;
+  margin: 1rem;
 }
 
 .signUp-form button[type="submit"]:focus {
   outline: none;
+}
+
+.signUpForm-btn {
+  text-align: center;
 }
 
 @media (min-width: 40rem) {

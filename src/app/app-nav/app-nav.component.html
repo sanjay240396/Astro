@@ -6,7 +6,15 @@
     <ul class="main-nav__items">
       <li class="main-nav__item"><a routerLink="/services">Services</a></li>
       <li class="main-nav__item"><a routerLink="/contact">Contacts</a></li>
-      <li class="main-nav__item"><a routerLink="/authenticate">Sign Up</a></li>
+      <li class="main-nav__item" *ngIf="isAutherised">
+        <a routerLink="/fetchUser">Fetch user</a>
+      </li>
+      <li class="main-nav__item" *ngIf="isAutherised" (click)="logout()">
+        <a routerLink="/">Logout</a>
+      </li>
+      <li class="main-nav__item" *ngIf="!isAutherised">
+        <a routerLink="/authenticate">Sign Up</a>
+      </li>
     </ul>
   </nav>
 </header>
