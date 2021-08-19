@@ -29,17 +29,8 @@ export class HomeComponent implements OnInit {
         Validators.required,
         this.validatePhoneNo,
       ]),
-      questions: new FormArray([]),
+      questions: new FormControl(null),
     });
-  }
-
-  getQuestions() {
-    return (<FormArray>this.questionForm.get('questions')).controls;
-  }
-
-  onAddQuestion() {
-    const control = new FormControl(null);
-    (<FormArray>this.questionForm.get('questions')).push(control);
   }
 
   validatePhoneNo(control: FormControl): { [s: string]: boolean } {

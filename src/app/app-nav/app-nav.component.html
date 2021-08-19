@@ -1,12 +1,12 @@
 <header>
   <nav class="main_nav">
     <li routerLinkActiveOptions="{exact : true}" class="main-home">
-      <a routerLink="/">ASTRO</a>
+      <a routerLink="/">RR ASTRO</a>
     </li>
     <ul class="main-nav__items">
-      <li class="main-nav__item"><a routerLink="/services">Services</a></li>
-      <li class="main-nav__item"><a routerLink="/contact">Contacts</a></li>
-      <li class="main-nav__item" *ngIf="isAutherised">
+      <!-- <li class="main-nav__item"><a routerLink="/gallery">Gallery</a></li> -->
+      <li class="main-nav__item"><a routerLink="/about">About</a></li>
+      <li class="main-nav__item" *ngIf="fetchEnable">
         <a routerLink="/fetchUser">Fetch user</a>
       </li>
       <li class="main-nav__item" *ngIf="isAutherised" (click)="logout()">

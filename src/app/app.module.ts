@@ -13,6 +13,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { FetchUserComponent } from './fetch-user/fetch-user.component';
 import { AppRouting } from './app-routing.module';
 import { AuthInterceptor } from './App-Services/auth-interceptor.service';
+import { AboutComponent } from './about/about.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { AuthInterceptor } from './App-Services/auth-interceptor.service';
     LoadingSpinnerComponent,
     AuthenticationComponent,
     FetchUserComponent,
+    AboutComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
